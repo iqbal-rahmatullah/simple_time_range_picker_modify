@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
+import 'package:ready2go/utils/color.dart';
+
 // Examples can assume:
 // BuildContext context;
 
@@ -19,6 +21,7 @@ const Duration _kDialAnimateDuration = Duration(milliseconds: 200);
 const double _kTwoPi = 2 * math.pi;
 const Duration _kVibrateCommitDelay = Duration(milliseconds: 100);
 const Curve standardEasing = Curves.fastOutSlowIn;
+
 enum _TimePickerMode { hour, minute }
 
 const double _kTimePickerHeaderLandscapeWidth = 264.0;
@@ -266,8 +269,7 @@ class _HourMinuteControl extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: style.copyWith(
-                  color: MaterialStateProperty.resolveAs(textColor, states)),
+              style: style.copyWith(color: Colors.black),
               textScaleFactor: _kTimePickerHeaderTextScaleFactor,
             ),
           ),
@@ -920,7 +922,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     _theta = _thetaController
         .drive(CurveTween(curve: standardEasing))
         .drive(_thetaTween)
-          ..addListener(() => setState(() {/* _theta.value has changed */}));
+      ..addListener(() => setState(() {/* _theta.value has changed */}));
   }
 
   late ThemeData themeData;
@@ -1232,8 +1234,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     final TimePickerThemeData pickerTheme = TimePickerTheme.of(context);
     final Color backgroundColor = pickerTheme.dialBackgroundColor ??
         themeData.colorScheme.onBackground.withOpacity(0.12);
-    final Color accentColor =
-        pickerTheme.dialHandColor ?? themeData.colorScheme.primary;
+    final Color accentColor = Colors.orange;
     final Color? primaryLabelColor = MaterialStateProperty.resolveAs(
         pickerTheme.dialTextColor, <MaterialState>{});
     final Color? secondaryLabelColor = MaterialStateProperty.resolveAs(
@@ -1247,19 +1248,19 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
           selectedDialValue = widget.selectedTime.hour;
           primaryLabels = _build24HourRing(theme.textTheme, primaryLabelColor);
           secondaryLabels =
-              _build24HourRing(theme.accentTextTheme, secondaryLabelColor);
+              _build24HourRing(theme.primaryTextTheme, secondaryLabelColor);
         } else {
           selectedDialValue = widget.selectedTime.hourOfPeriod;
           primaryLabels = _build12HourRing(theme.textTheme, primaryLabelColor);
           secondaryLabels =
-              _build12HourRing(theme.accentTextTheme, secondaryLabelColor);
+              _build12HourRing(theme.primaryTextTheme, secondaryLabelColor);
         }
         break;
       case _TimePickerMode.minute:
         selectedDialValue = widget.selectedTime.minute;
         primaryLabels = _buildMinutes(theme.textTheme, primaryLabelColor);
         secondaryLabels =
-            _buildMinutes(theme.accentTextTheme, secondaryLabelColor);
+            _buildMinutes(theme.primaryTextTheme, secondaryLabelColor);
         break;
     }
     // return Container(color: Colors.black, child: Text("1111"));
@@ -1292,7 +1293,7 @@ class _TimePickerInput extends StatefulWidget {
     required this.initialSelectedTime,
     // @required this.helpText,
     required this.onChanged,
-  })   : super(key: key);
+  }) : super(key: key);
 
   /// The time initially selected when the dialog is shown.
   final TimeOfDay initialSelectedTime;
@@ -1880,12 +1881,17 @@ class _TimeSinglePickerState extends State<TimeSinglePicker> {
             children: <Widget>[
               TextButton(
                 onPressed: _handleCancel,
-                child:
-                    Text(widget.cancelText ?? localizations.cancelButtonLabel),
+                child: Text(
+                  widget.cancelText ?? localizations.cancelButtonLabel,
+                  style: TextStyle(
+                      color: MyColor.darkColor, fontWeight: FontWeight.w300),
+                ),
               ),
               TextButton(
                 onPressed: _handleOk,
-                child: Text(widget.confirmText ?? localizations.okButtonLabel),
+                child: Text(widget.confirmText ?? localizations.okButtonLabel,
+                    style: TextStyle(
+                        color: Colors.amber[800], fontWeight: FontWeight.bold)),
               ),
             ],
           ),
