@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_time_range_picker/src/widget/time_single_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:ready2go/utils/color.dart';
 
 enum TimeRangeViewType { start, end }
 
@@ -135,8 +134,8 @@ class _TimeRangeDialogState extends State<_TimeRangeDialog>
               : _kTimePickerHeightLandscape,
           child: Scaffold(
             appBar: TabBar(
-                labelColor: MyColor.primaryColor,
-                indicatorColor: MyColor.primaryColor,
+                labelColor: Color(0xffFFA629),
+                indicatorColor: Color(0xffFFA629),
                 controller: _tabController,
                 tabs: [
                   Tab(

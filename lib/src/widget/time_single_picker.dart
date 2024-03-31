@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
-import 'package:ready2go/utils/color.dart';
-
 // Examples can assume:
 // BuildContext context;
 
@@ -1884,7 +1882,7 @@ class _TimeSinglePickerState extends State<TimeSinglePicker> {
                 child: Text(
                   widget.cancelText ?? localizations.cancelButtonLabel,
                   style: TextStyle(
-                      color: MyColor.darkColor, fontWeight: FontWeight.w300),
+                      color: Color(0xff7D7D7D), fontWeight: FontWeight.w300),
                 ),
               ),
               TextButton(
